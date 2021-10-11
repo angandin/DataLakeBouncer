@@ -15,16 +15,26 @@ namespace DataLakeBouncer.DLSGen2_Utilities
 {
     public class Authenticator
     {
-        public static void GetDataLakeServiceClient(ref DataLakeServiceClient dataLakeServiceClient,
+        public static DataLakeServiceClient GetDataLakeServiceClient(ref DataLakeServiceClient dataLakeServiceClient,
     string accountName, string accountKey)
         {
-            StorageSharedKeyCredential sharedKeyCredential =
+            try
+            {
+                StorageSharedKeyCredential sharedKeyCredential =
                 new StorageSharedKeyCredential(accountName, accountKey);
 
-            string dfsUri = "https://" + accountName + ".dfs.core.windows.net";
+                string dfsUri = "https://" + accountName + ".dfs.core.windows.net";
 
-            dataLakeServiceClient = new DataLakeServiceClient
-                (new Uri(dfsUri), sharedKeyCredential);
+                dataLakeServiceClient = new DataLakeServiceClient
+                    (new Uri(dfsUri), sharedKeyCredential);
+
+                return dataLakeServiceClient;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in authenticate with credential given: {ex}");
+                throw;
+            }
         }
     }
 }
