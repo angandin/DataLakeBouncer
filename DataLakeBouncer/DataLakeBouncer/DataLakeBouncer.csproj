@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="DLSGen2_Utilities\Authenticator.cs" />
     <Compile Include="DLSGen2_Utilities\DirManager.cs" />
+    <Compile Include="DLSGen2_Utilities\DirItem.cs" />
     <Compile Include="DLSGen2_Utilities\PreferencesManager.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

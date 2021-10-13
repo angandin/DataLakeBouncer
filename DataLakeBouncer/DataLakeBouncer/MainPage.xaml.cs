@@ -29,7 +29,7 @@ namespace DataLakeBouncer
 
             List<String> fileSystemsList = orch.GetFileSystems();
 
-            TreeViewNode rootNode = new TreeViewNode() { Content = "File Systems" };
+            TreeViewNode rootNode = new TreeViewNode() { Content = orch.GetStorageName() };
             rootNode.IsExpanded = true;
 
             foreach(var s in fileSystemsList)
@@ -49,6 +49,7 @@ namespace DataLakeBouncer
         {
             Console.WriteLine(e);
         }
+
         private void Main_TreeView_DirList_Collapsing(TreeView sender, TreeViewCollapsedEventArgs e)
         {
             Console.WriteLine(e);

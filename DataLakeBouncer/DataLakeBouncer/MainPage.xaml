@@ -5,12 +5,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Windows.UI.Xaml.Controls"
+    xmlns:dlsgen2_utilities="using:DataLakeBouncer.DLSGen2_Utilities"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
         <ComboBox x:Name="Main_ComboBox_storageList" Margin="91,75,0,0" PlaceholderText="Select DataLake Gen2 namespace" Visibility="Visible" SelectionChanged="Main_ComboBox_storageList_SelectionChanged"></ComboBox>
 
-        <muxc:TreeView x:Name="Main_TreeView_DirList" Margin="91,179,448,74" SelectionMode="Single" ItemInvoked="Main_TreeView_DirList_ItemInvoked" Expanding="Main_TreeView_DirList_Expanding" Collapsed="Main_TreeView_DirList_Collapsing"/>
+        <muxc:TreeView x:Name="Main_TreeView_DirList" Margin="91,179,448,74" SelectionMode="Single" ItemInvoked="Main_TreeView_DirList_ItemInvoked" Expanding="Main_TreeView_DirList_Expanding" Collapsed="Main_TreeView_DirList_Collapsing">
+            <muxc:TreeView.ItemTemplate>
+                <DataTemplate x:DataType="dlsgen2_utilities:DirItem">
+                    <muxc:TreeViewItem ItemsSource="{x:Bind Children}" Content="{x:Bind Name}" IsExpanded="True"/>
+                </DataTemplate>
+            </muxc:TreeView.ItemTemplate>
+        </muxc:TreeView>
     </Grid>
 </Page>

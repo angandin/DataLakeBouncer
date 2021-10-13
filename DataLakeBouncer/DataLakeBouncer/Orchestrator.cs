@@ -10,9 +10,21 @@ namespace DataLakeBouncer
     internal class Orchestrator
     {
         DirManager dm;
+        private String StorageName;
+
+        public String GetStorageName()
+        {
+            return this.StorageName;
+        }
+
+        private void SetStorageName(String storageName)
+        {
+            this.StorageName = storageName;
+        }
 
         public void InitializeSession(String storageName)
         {
+            StorageName = storageName;
             dm = new DirManager(storageName);
             if (dm == null)
             {
@@ -25,5 +37,10 @@ namespace DataLakeBouncer
         {
             return dm.GetFileSystems();
         }
+
+        //public List<Item> GetSubItems()
+        //{
+
+        //}
     }
 }
