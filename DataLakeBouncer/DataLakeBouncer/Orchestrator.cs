@@ -17,11 +17,6 @@ namespace DataLakeBouncer
             return this.StorageName;
         }
 
-        private void SetStorageName(String storageName)
-        {
-            this.StorageName = storageName;
-        }
-
         public void InitializeSession(String storageName)
         {
             StorageName = storageName;
@@ -33,9 +28,9 @@ namespace DataLakeBouncer
             }
         }
 
-        public List<String> GetFileSystems()
+        public List<DirItem> GetNodes()
         {
-            return dm.GetFileSystems();
+            return dm.GetNodes();
         }
 
         //public List<Item> GetSubItems()

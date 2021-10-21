@@ -12,7 +12,6 @@ namespace DataLakeBouncer.DLSGen2_Utilities
     public class DirManager
     {
         DataLakeServiceClient dlsc;
-        DataLakeFileSystemClient dlfsc;
 
         public DirManager(String storageName)
         {
@@ -31,7 +30,7 @@ namespace DataLakeBouncer.DLSGen2_Utilities
             }
         }
 
-        public List<String> GetFileSystems()
+        public List<DirItem> GetNodes()
         {
             try
             {
@@ -39,10 +38,13 @@ namespace DataLakeBouncer.DLSGen2_Utilities
                 fsEnum.MoveNext();
                 FileSystemItem fs = fsEnum.Current;
                 
-                List<String> fsList = new List<String>();
+                List<DirItem> fsList = new List<DirItem>();
                 while (fs != null)
                 {
-                    fsList.Add(fs.Name);
+                    DirItem di = new DirItem(fs.Name, true, DirItem.ExplorerItemType.Folder);
+                    DirItem diDumb = new DirItem("None", true, DirItem.ExplorerItemType.None);
+                    di.Children.Add(diDumb);
+                    fsList.Add(di);
 
                     fsEnum.MoveNext();
                     fs = fsEnum.Current;

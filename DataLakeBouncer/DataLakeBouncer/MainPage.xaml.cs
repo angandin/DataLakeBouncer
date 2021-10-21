@@ -1,6 +1,8 @@
 ﻿using DataLakeBouncer.DLSGen2_Utilities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
 
 namespace DataLakeBouncer
@@ -11,6 +13,8 @@ namespace DataLakeBouncer
     public sealed partial class MainPage : Page
     {
         Orchestrator orch = new Orchestrator();
+        private ObservableCollection<DirItem> dataSource = new ObservableCollection<DirItem>();
+        public ObservableCollection<DirItem> DataSource { get { return this.dataSource; } }
 
         public MainPage()
         {
@@ -27,17 +31,19 @@ namespace DataLakeBouncer
         {
             orch.InitializeSession(Main_ComboBox_storageList.SelectedItem.ToString());
 
-            List<String> fileSystemsList = orch.GetFileSystems();
+            List<DirItem> fileSystemsList = orch.GetNodes();
 
-            TreeViewNode rootNode = new TreeViewNode() { Content = orch.GetStorageName() };
+            DirItem rootNode = new DirItem(orch.GetStorageName(), true, DirItem.ExplorerItemType.Folder);
             rootNode.IsExpanded = true;
 
-            foreach(var s in fileSystemsList)
+            foreach (var fileSystem in fileSystemsList)
             {
-                rootNode.Children.Add(new TreeViewNode() { Content = s, IsExpanded = false, HasUnrealizedChildren = true});
+                rootNode.Children.Add(fileSystem);
             }
 
-            Main_TreeView_DirList.RootNodes.Add(rootNode);
+            this.DataContext = this;
+
+            this.dataSource.Add(rootNode);
         }
 
         private void Main_TreeView_DirList_ItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs e)
@@ -52,7 +58,7 @@ namespace DataLakeBouncer
 
         private void Main_TreeView_DirList_Collapsing(TreeView sender, TreeViewCollapsedEventArgs e)
         {
-            Console.WriteLine(e);
+            
         }
     }
 }

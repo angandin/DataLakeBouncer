@@ -12,10 +12,22 @@
     <Grid>
         <ComboBox x:Name="Main_ComboBox_storageList" Margin="91,75,0,0" PlaceholderText="Select DataLake Gen2 namespace" Visibility="Visible" SelectionChanged="Main_ComboBox_storageList_SelectionChanged"></ComboBox>
 
-        <muxc:TreeView x:Name="Main_TreeView_DirList" Margin="91,179,448,74" SelectionMode="Single" ItemInvoked="Main_TreeView_DirList_ItemInvoked" Expanding="Main_TreeView_DirList_Expanding" Collapsed="Main_TreeView_DirList_Collapsing">
+        <muxc:TreeView x:Name="Main_TreeView_DirList" 
+                       Margin="91,179,448,74" 
+                       SelectionMode="Single"
+                       ItemInvoked="Main_TreeView_DirList_ItemInvoked"
+                       Expanding="Main_TreeView_DirList_Expanding"
+                       Collapsed="Main_TreeView_DirList_Collapsing"
+                       ItemsSource="{x:Bind DataSource}">
             <muxc:TreeView.ItemTemplate>
                 <DataTemplate x:DataType="dlsgen2_utilities:DirItem">
-                    <muxc:TreeViewItem ItemsSource="{x:Bind Children}" Content="{x:Bind Name}" IsExpanded="True"/>
+                    <muxc:TreeViewItem ItemsSource="{x:Bind Children}" IsExpanded="False">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="20" Source="{x:Bind ImagePath}"/>
+                            <TextBlock Margin="0,0,10,0"/>
+                            <TextBlock Text="{x:Bind Name}" />
+                        </StackPanel>
+                    </muxc:TreeViewItem>
                 </DataTemplate>
             </muxc:TreeView.ItemTemplate>
         </muxc:TreeView>

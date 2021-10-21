@@ -135,6 +135,10 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\blank.png" />
+    <Content Include="Assets\file.png" />
+    <Content Include="Assets\folder.png" />
+    <Content Include="Assets\folder2.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

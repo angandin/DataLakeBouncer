@@ -14,11 +14,26 @@ namespace DataLakeBouncer.DLSGen2_Utilities
     {
         public string Name {  get; set; }
         public bool CanExpand { get; set; }
-        public enum ExplorerItemType { Folder, File };
+        public string ImagePath { get; set; }
+        public enum ExplorerItemType { Folder, File, None};
         public ExplorerItemType Type { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         
+        public DirItem(String name, bool canExpand, ExplorerItemType type)
+        {
+            Name = name;
+            CanExpand = canExpand;
+            Type = type;
+
+            if (Type == ExplorerItemType.Folder)
+                ImagePath = "../Assets/folder2.png";
+            else if (Type == ExplorerItemType.File)
+                ImagePath = "../Assets/file.png";
+            else if (Type == ExplorerItemType.None)
+                ImagePath = "../Assets/blank.png";
+        }
+
         private ObservableCollection<DirItem> m_children;
         public ObservableCollection<DirItem> Children
         {
